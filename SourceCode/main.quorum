@@ -1,0 +1,50 @@
+use Libraries.Game.Game
+use Libraries.Game.Graphics.Color
+use Libraries.Game.Graphics.AmbientLight
+use Libraries.Game.Graphics.DirectionalLight
+use Libraries.Game.Graphics.Model
+use Libraries.Game.InputMonitor
+use Libraries.Interface.Events.KeyboardEvent
+use Libraries.Compute.Vector3
+
+class Main is Game
+Model cube
+Model ground
+AmbientLight light
+DirectionalLight shadow
+InputMonitor sing 
+Color blue
+KeyboardEvent song 
+Vector3 force
+
+    action Main
+        StartGame()
+    end
+    
+    action CreateGame
+        EnablePhysics3D(true)
+
+        cube:LoadBox(1,1,1,blue:Green())
+        cube:SetPosition(0,2,0)
+        Add(cube)
+        cube:EnablePhysics(true)
+        cube:SetResponsive()
+
+        shadow:SetColor(0.8,0.8,0.8,1)
+        shadow:SetDirection(GetCamera3D():GetDirection())
+        Add(shadow)
+
+        light:SetColor(0.4,0.4,0.4,1)
+        SetAmbientLight(light)
+
+        ground:LoadBox(12,2,12,blue:Red()) 
+        ground:SetPosition(0,-5,0)
+        Add(ground)
+        ground:EnablePhysics(true)
+        ground:SetUnmovable()
+
+        SetGravity3D(-10,0,0)
+    end
+    action Update(number seconds)
+    end
+end
